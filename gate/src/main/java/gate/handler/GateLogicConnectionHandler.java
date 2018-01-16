@@ -24,7 +24,7 @@ public class GateLogicConnectionHandler extends SimpleChannelInboundHandler<Mess
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         _gateLogicConnection = ctx;
-        logger.info("[Gate-Logic] connection is established");
+        logger.info("[Gate-Logic] 链接已建立");
 
         //向logic发送Greet
         sendGreet2Logic();

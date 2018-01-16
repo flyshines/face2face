@@ -25,7 +25,7 @@ public class GateAuthConnectionHandler extends SimpleChannelInboundHandler<Messa
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         _gateAuthConnection = ctx;
-        logger.info("[Gate-Auth] connection is established");
+        logger.info("[Gate-Auth] 链接已建立");
 
         sendGreet2Auth();
     }

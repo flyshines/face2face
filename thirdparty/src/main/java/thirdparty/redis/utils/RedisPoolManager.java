@@ -14,9 +14,11 @@ public class RedisPoolManager {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisPoolManager.class);
 
-    public  String REDIS_SERVER = "localhost";
+    public  String REDIS_SERVER = "127.0.0.1";
 
-    public  int REDIS_PORT = 6666;
+    public  int REDIS_PORT = 6379;
+    public  String  REDIS_PASS = "qingning";
+    public  int  DATABASES = 3;
 
     private JedisPool pool = null;
 
@@ -31,7 +33,7 @@ public class RedisPoolManager {
             config.setTestOnBorrow(true);
             config.setTestOnReturn(true);
 
-            pool = new JedisPool(config, REDIS_SERVER, REDIS_PORT, 10);
+            pool = new JedisPool(config, REDIS_SERVER, REDIS_PORT, 10,REDIS_PASS,DATABASES);
         }
 
         return pool;

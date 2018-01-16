@@ -25,7 +25,6 @@ import java.io.File;
 public class AuthStarter {
     private static final Logger logger = LoggerFactory.getLogger(AuthStarter.class);
     private static File cfg = null;
-    private static File log = null;
     public static RedisPoolManager _redisPoolManager;
     public static int workNum = 1;
     public static auth.Worker[] workers;
@@ -46,10 +45,9 @@ public class AuthStarter {
             Element rootElement = doc.getDocumentElement();
 
             XPath xPath = XPathFactory.newInstance().newXPath();
-            XPathExpression xPathExpression = null;
-            NodeList nodeList = null;
-            Element element = null;
-
+            XPathExpression xPathExpression;
+            NodeList nodeList;
+            Element element;
 
             xPathExpression  = xPath.compile("/auth/authserver");
             nodeList = (NodeList)xPathExpression.evaluate(rootElement, XPathConstants.NODESET);
@@ -65,6 +63,8 @@ public class AuthStarter {
             _redisPoolManager = new RedisPoolManager();
             _redisPoolManager.REDIS_SERVER = element.getAttribute("ip");
             _redisPoolManager.REDIS_PORT = Integer.parseInt(element.getAttribute("port"));
+            _redisPoolManager.REDIS_PASS = String.valueOf(element.getAttribute("password"));
+            _redisPoolManager.DATABASES = Integer.parseInt(element.getAttribute("databases"));
 
             _redisPoolManager.returnJedis(_redisPoolManager.getJedis());
             logger.info("Redis init successed");
@@ -93,7 +93,6 @@ public class AuthStarter {
         Options options = new Options( );
         options.addOption("h", "help", false, "Print this usage information");
         options.addOption("c", "cfg", true, "config Absolute Path");
-        options.addOption("l", "log", true, "log configuration");
 
         // Parse the program arguments
         CommandLine commandLine = parser.parse( options, args );
@@ -109,18 +108,12 @@ public class AuthStarter {
             printHelpMessage();
             System.exit(0);
         }
-        if( commandLine.hasOption('l') ) {
-            log = new File(commandLine.getOptionValue('l'));
-        } else {
-            printHelpMessage();
-            System.exit(0);
-        }
     }
 
     static void printHelpMessage() {
         System.out.println( "Change the xml File and Log.XML Path to the right Absolute Path base on your project Location in your computor");
         System.out.println("Usage example: ");
-        System.out.println( "java -cfg D:\\MyProject\\face2face\\auth\\src\\main\\resources\\auth.xml  -log D:\\MyProject\\face2face\\auth\\src\\main\\resources\\log.xml");
+        System.out.println( "java -cfg D:\\MyProject\\face2face\\auth\\src\\main\\resources\\auth.xml");
         System.exit(0);
     }
 

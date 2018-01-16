@@ -8,6 +8,9 @@
 
     <!--这里配置redis数据库地址-->
     <redis      ip = "127.0.0.1"
-                port = "6379" />
+                port = "6379"
+                password = "qingning"
+                databases = "3"
+    />
 
 </logic>

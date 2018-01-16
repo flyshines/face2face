@@ -70,6 +70,8 @@ public class LogicStarter {
             _redisPoolManager = new RedisPoolManager();
             _redisPoolManager.REDIS_SERVER = element.getAttribute("ip");
             _redisPoolManager.REDIS_PORT = Integer.parseInt(element.getAttribute("port"));
+            _redisPoolManager.REDIS_PASS = String.valueOf(element.getAttribute("password"));
+            _redisPoolManager.DATABASES = Integer.parseInt(element.getAttribute("databases"));
 
             _redisPoolManager.returnJedis(_redisPoolManager.getJedis());
             logger.info("Redis init successed");

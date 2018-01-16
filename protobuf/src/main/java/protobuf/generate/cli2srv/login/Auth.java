@@ -59,6 +59,7 @@ public final class Auth {
       return defaultInstance;
     }
 
+    @Override
     public CRegister getDefaultInstanceForType() {
       return defaultInstance;
     }
